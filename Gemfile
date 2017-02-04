@@ -9,7 +9,9 @@ gem 'filterrific' #, path: '../filterrific'
 gem 'haml-rails'
 gem 'jbuilder'
 gem 'jquery-rails'
-gem 'pg'
+group :production do
+  gem 'pg'
+end
 gem 'random_data'
 gem 'thin'
 gem 'turbolinks'
@@ -27,7 +29,8 @@ gem 'coffee-rails' # specify in default group to avoid autoload warnings on test
 group :development, :test do
   # supported database adapters
   # gem 'pg' # already specified in default group higher up
-  gem 'mysql2'
+  # gem 'mysql2' # use sqlite3 for development & test
+  gem 'sqlite3'
 end
 
 group :development do
