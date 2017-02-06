@@ -1,0 +1,10 @@
+<% js = escape_javascript(
+  render(
+    :partial => 'searches/list',
+    :locals => { :searches => @searches }
+  )
+) %>
+$("#searches_list").html("<%= js %>");
+
+// $('#new_search_modal').modal_success();
+$('#new_search_modal').modal('hide');

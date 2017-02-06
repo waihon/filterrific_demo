@@ -41,13 +41,18 @@
                    { :class => 'form-control' }
 
     %div
+      .chardin_box{ :'data-position' => 'left', :'data-intro' => 'Save current filter settings.' }
+        = link_to "Save",  "#new_search_modal", "data-toggle" => "modal", :class => 'btn btn-default btn-sm'
       .chardin_box{ :'data-position' => 'bottom', :'data-intro' => 'Reset the filter settings to defaults.' }
         = link_to "Reset", students_url + "?filterrific%5Breset_filterrific%5D=true", :class => 'btn btn-default btn-sm'
+      #modal_form
+        = render :partial => "searches/modal_form"
 
     %div
       %h4 Saved Searches
-      #searches
-        = render :partial => 'students/searches',
+      #searches_list
+        -# = render :partial => 'students/searches',
+        = render :partial => 'searches/list',
                  :locals => { :searches => @searches }
 
 :javascript

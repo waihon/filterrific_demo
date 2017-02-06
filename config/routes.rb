@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   resources :students
+  resources :searches
 
   get "/students/search/:search_id",
     to: "students#index",

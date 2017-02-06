@@ -4,6 +4,7 @@ class StudentsController < ApplicationController
     session[:referrer] = url_for()
 
     @searches = Search.all
+    @search = Search.new
 
     @filterrific = initialize_filterrific(
       Student,
