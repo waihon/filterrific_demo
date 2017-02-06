@@ -1,7 +1,7 @@
 .page-header{ :style => 'margin-bottom: 70px;' }
   .pull-right
     = link_to 'Home', root_path, :style => 'display: inline-block; margin-top: 25px;'
-  %h1.chardin_box{ :'data-position' => 'right', :'data-intro' => 'This is a demo for filterrific. Filter and sort the list of students. Click anywhere to remove the overlay.' }
+  %h1.chardin_box{ :'data-position' => 'right', :'data-intro' => 'This is an enhanced demo for filterrific with saved searches. Filter and sort the list of students. Click anywhere to remove the overlay.' }
     Students
   = link_to "Click me for instructions!",
             "#",
@@ -9,37 +9,46 @@
             :class => 'btn btn-success btn-lg',
             :style => 'margin: 0 0 15px 20px;'
 
-.well
-  = form_for_filterrific @filterrific do |f|
-    .row
-      .col-md-3
-        .form-group.chardin_box{ :'data-position' => 'top', :'data-intro' => 'Search by first name, last name, or email.' }
-          %label Search
-          = f.text_field :search_query,
-                         :class => 'filterrific-periodically-observed form-control'
-      .col-md-3
-        .form-group.chardin_box{ :'data-position' => 'top', :'data-intro' => 'Filter by country.' }
-          %label Country
-          = f.select :with_country_id,
-                     @filterrific.select_options[:with_country_id],
-                     { :include_blank => '- Any -' },
-                     { :class => 'form-control' }
-      .col-md-2
-        .form-group.chardin_box{ :'data-position' => 'top', :'data-intro' => 'Filter by registration date.' }
-          %label Registered after
-          = f.text_field :with_created_at_gte,
-                         :class => 'js-datepicker form-control'
-      .col-md-4
-        .form-group.chardin_box{ :'data-position' => 'top', :'data-intro' => 'Change the sorting.' }
-          %label Sorted by
-          = f.select :sorted_by,
-                     @filterrific.select_options[:sorted_by],
-                     {},
-                     { :class => 'form-control' }
+.row
+  .col-md-9
+    #results
+      = render :partial => 'students/list',
+               :locals => { :students => @students }
 
-#results
-  = render :partial => 'students/list',
-           :locals => { :students => @students }
+  .col-md3
+    %div
+      %h4 Search Filter
+    = form_for_filterrific @filterrific do |f|
+      .form-group.chardin_box{ :'data-position' => 'left', :'data-intro' => 'Search by first name, last name, or email.' }
+        %label Search Name/Email
+        = f.text_field :search_query,
+                       :class => 'filterrific-periodically-observed form-control'
+      .form-group.chardin_box{ :'data-position' => 'left', :'data-intro' => 'Filter by country.' }
+        %label Country
+        = f.select :with_country_id,
+                   @filterrific.select_options[:with_country_id],
+                   { :include_blank => '- Any -' },
+                   { :class => 'form-control' }
+      .form-group.chardin_box{ :'data-position' => 'left', :'data-intro' => 'Filter by registration date.' }
+        %label Registered after
+        = f.text_field :with_created_at_gte,
+                       :class => 'js-datepicker form-control'
+      .form-group.chardin_box{ :'data-position' => 'left', :'data-intro' => 'Change the sorting.' }
+        %label Sorted by
+        = f.select :sorted_by,
+                   @filterrific.select_options[:sorted_by],
+                   {},
+                   { :class => 'form-control' }
+
+    %div
+      .chardin_box{ :'data-position' => 'bottom', :'data-intro' => 'Reset the filter settings to defaults.' }
+        = link_to "Reset", students_url + "?filterrific%5Breset_filterrific%5D=true", :class => 'btn btn-default btn-sm'
+
+    %div
+      %h4 Saved Searches
+      #searches
+        = render :partial => 'students/searches',
+                 :locals => { :searches => @searches }
 
 :javascript
   $('.js-datepicker').datepicker();

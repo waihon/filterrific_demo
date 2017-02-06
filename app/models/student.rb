@@ -1,6 +1,10 @@
 class Student < ActiveRecord::Base
 
-  filterrific :default_filter_params => { :sorted_by => 'created_at_desc' },
+  def self.default_filter_params
+    { :sorted_by => 'created_at_desc' }
+  end
+
+  filterrific :default_filter_params => Student.default_filter_params,
               :available_filters => %w[
                 sorted_by
                 search_query
@@ -48,7 +52,9 @@ class Student < ActiveRecord::Base
     when /^name_/
       order("LOWER(students.last_name) #{ direction }, LOWER(students.first_name) #{ direction }")
     when /^country_name_/
-      order("LOWER(countries.name) #{ direction }").includes(:country)
+      # SQLite3 doesn't support LOWER
+      #order("LOWER(countries.name) #{ direction }").includes(:country)
+      order("countries.name #{ direction }").includes(:country)
     else
       raise(ArgumentError, "Invalid sort option: #{ sort_option.inspect }")
     end
@@ -57,7 +63,7 @@ class Student < ActiveRecord::Base
     where(:country_id => [*country_ids])
   }
   scope :with_created_at_gte, lambda { |ref_date|
-    where('students.created_at >= ?', ref_date)
+    where('students.created_at >= ?', Date.strptime(ref_date, "%m/%d/%Y"))
   }
 
   delegate :name, :to => :country, :prefix => true
