@@ -3,7 +3,11 @@
 
 require_relative 'config/application'
 
-require 'wwtd/tasks'
+begin
+  require 'wwtd/tasks'
+rescue LoadError => e
+  raise e unless ENV['RAILS_ENV'] == "production"
+end
 task default: 'wwtd:local'
 
 Rails.application.load_tasks
