@@ -18,3 +18,4 @@
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.en-GB.js
 //= require filterrific/filterrific-jquery
 //= require chardinjs
+//= require searches.js

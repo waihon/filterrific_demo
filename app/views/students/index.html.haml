@@ -51,7 +51,6 @@
     %div
       %h4 Saved Searches
       #searches_list
-        -# = render :partial => 'students/searches',
         = render :partial => 'searches/list',
                  :locals => { :searches => @searches }
 

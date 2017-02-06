@@ -52,8 +52,7 @@ class Student < ActiveRecord::Base
     when /^name_/
       order("LOWER(students.last_name) #{ direction }, LOWER(students.first_name) #{ direction }")
     when /^country_name_/
-      # SQLite3 doesn't support LOWER
-      #order("LOWER(countries.name) #{ direction }").includes(:country)
+      # SQLite3 doesn't seem to support LOWER when including another model
       order("countries.name #{ direction }").includes(:country)
     else
       raise(ArgumentError, "Invalid sort option: #{ sort_option.inspect }")
