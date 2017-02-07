@@ -16,3 +16,10 @@
     </div>
   </div>
 </div>
+
+<%# Every time a modal is shown, if it has an autofocus element, focus on it.  %>
+<script>
+  $('.modal').on('shown.bs.modal', function() {
+    $(this).find('[autofocus]').focus();
+  });
+</script>

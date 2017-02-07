@@ -15,9 +15,8 @@
       = render :partial => 'students/list',
                :locals => { :students => @students }
 
-  .col-md3
-    %div
-      %h4 Search Filter
+  .col-md-3
+    %h4 Search Filter
     = form_for_filterrific @filterrific do |f|
       .form-group.chardin_box{ :'data-position' => 'left', :'data-intro' => 'Search by first name, last name, or email.' }
         %label Search Name/Email
@@ -40,19 +39,17 @@
                    {},
                    { :class => 'form-control' }
 
-    %div
-      .chardin_box{ :'data-position' => 'left', :'data-intro' => 'Save current filter settings.' }
-        = link_to "Save",  "#new_search_modal", "data-toggle" => "modal", :class => 'btn btn-default btn-sm'
-      .chardin_box{ :'data-position' => 'bottom', :'data-intro' => 'Reset the filter settings to defaults.' }
-        = link_to "Reset", students_url + "?filterrific%5Breset_filterrific%5D=true", :class => 'btn btn-default btn-sm'
-      #modal_form
-        = render :partial => "searches/modal_form"
+    .chardin_box{ :'data-position' => 'left', :'data-intro' => 'Save current filter settings.' }
+      = link_to "Save",  "#new_search_modal", "data-toggle" => "modal", :class => 'btn btn-default btn-sm'
+    .chardin_box{ :'data-position' => 'bottom', :'data-intro' => 'Reset the filter settings to defaults.' }
+      = link_to "Reset", students_url + "?filterrific%5Breset_filterrific%5D=true", :class => 'btn btn-default btn-sm'
+    #modal_form
+      = render :partial => "searches/modal_form"
 
-    %div
-      %h4 Saved Searches
-      #searches_list
-        = render :partial => 'searches/list',
-                 :locals => { :searches => @searches }
+    %h4 Saved Searches
+    #searches_list
+      = render :partial => 'searches/list',
+               :locals => { :searches => @searches }
 
 :javascript
   $('.js-datepicker').datepicker();
