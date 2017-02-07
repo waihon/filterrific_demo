@@ -17,3 +17,7 @@
 
 /doc/scratchpad.md
 /vendor/bundle
+
+# Ignore Rails ERD files
+*.pdf
+.erdconfig
